@@ -6,21 +6,21 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/sparqlslurper-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/sparqlslurper-{{ version }}.tar.gz
   sha256: 9282ebb064fc6152a58269d194cb1e7b275b0f095425a578d75b96dcc851f546
 
 build:
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
-  number: 0
+  number: 1
 
 requirements:
   host:
-    - python >=3.7
+    - python {{ python_min }}
     - pbr
     - pip
   run:
-    - python >=3.7
+    - python >={{ python_min }}
     - rdflib-shim
     - rdflib >=5.0.0
     - sparqlwrapper >=1.8.2
@@ -32,6 +32,7 @@ test:
     - pip check
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: http://github.com/hsolbrig/sparqlslurper
